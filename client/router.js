@@ -1,0 +1,53 @@
+Router.map(function(){
+	this.route('home',{
+		path:'/',
+		layoutTemplate:'layout',
+		yieldTemplates:{
+			'hleft':{to:'left'},
+			'menu':{to:'menu'}
+		}
+	});
+	this.route('classes',{
+		layoutTemplate:'layout',
+		yieldTemplates:{
+			'cleft':{to:'left'},
+			'menu':{to:'menu'}
+		}
+	});
+	this.route('classlevels',{
+		layoutTemplate:'layout',
+		yieldTemplates:{
+			'cleft':{to:'left'},
+			'menu':{to:'menu'}
+		}
+	});
+
+	this.route('students',{
+		layoutTemplate:'layout',
+		yieldTemplates:{
+			'sleft':{to:'left'},
+			'menu':{to:'menu'}
+		}
+	});
+	this.route('teachers',{
+		layoutTemplate:'layout',
+		yieldTemplates:{
+			'tleft':{to:'left'},
+			'menu':{to:'menu'}
+		}
+	});
+	this.route('rooms',{
+		layoutTemplate:'layout',
+		notFoundTemplate:'notFound',
+		yieldTemplates:{
+			'rleft':{to:'left'},
+			'menu':{to:'menu'}
+		}
+	});
+});
+
+Router.configure({
+	layoutTemplate:'layout',
+	notFoundTemplate:'notFound',
+	loadingTemplate:'loading'
+});

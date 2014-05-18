@@ -1,0 +1,117 @@
+<template name="classes">
+	{{>insertClass}}
+	{{>insertClassLevel}}
+	{{>updateClass}}
+	<div class="row">
+		<h3>Groups list</h3>
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
+				<th>Group Name</th>
+				<th>Group Level</th>
+				<th>Comment</th>
+			</thead>
+			<tbody>
+				{{#each class}}
+					<tr>
+						<td>{{name}}</td>
+						<td>{{level}}</td>
+						<td>{{comment}}</td>
+						<td id="deleteTD">{{> afDeleteButton collection="Classes" doc=editingDoc}}</td>
+					</tr>
+				{{/each}}
+			</tbody>
+		</table>		
+	</div>
+
+</template>
+
+<template name="cleft">
+	<div class="btn-group-vertical">
+		<a class="btn btn-primary" data-toggle="modal" href='#modal-id-insertClass'>Add New Class</a>
+		<a class="btn btn-primary" data-toggle="modal" href='#modal-id-insertClassLevel'>Add New Level</a>
+		<a class="btn btn-primary" data-toggle="modal" href='#modal-id-updateClass'>Update Class</a>
+	  	<a class="btn btn-primary" data-toggle="modal" href='#modal-id-addClass3'>Add New Class</a>		
+	</div>
+
+</template>
+
+<template name="insertClass">
+	<div class="modal fade" id="modal-id-insertClass">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Add New Class</h4>
+				</div>
+				<div class="modal-body">
+					{{#autoForm collection="Classes" id="insertClass" type="insert"}}
+						<fieldset>
+							{{>afQuickField name="name"}}
+							{{>afFieldInput name="level" options=levelOptions}}
+							{{>afQuickField name='comment'}}
+						</fieldset>
+						<button type="submit" class="btn btn-primary">Insert</button>
+					{{/autoForm}}
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+</template>
+
+<template name="insertClassLevel">
+	<div class="modal fade" id="modal-id-insertClassLevel">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Add Level</h4>
+				</div>
+				<div class="modal-body">
+					{{> quickForm collection="ClassLevels" id="insertBookForm" type="insert"}}
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+</template>
+
+<template name="updateClass">
+	<div class="modal fade" id="modal-id-updateClass">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Update Class</h4>
+				</div>
+				<div class="modal-body">
+					{{> quickForm collection="Classes" doc=editingDoc id="updateBookForm" type="update"}}
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+</template>
+
+<template name="classlevels">
+	<table class="table table-bordered table-striped table-hover">
+		<thead>
+			<th>Class Level</th>
+		</thead>
+		<tbody>
+			{{#each classLevels}}
+				<tr><td>{{name}}</td></tr>
+			{{/each}}
+		</tbody>
+	</table>
+
+</template>
