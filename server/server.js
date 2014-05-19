@@ -21,8 +21,12 @@ Students = new Meteor.Collection('students');
 	}
 
   });
-
-
+  
+  Meteor.users.allow({
+  	insert: function(userId, user){
+  		return true;
+  	}
+  });
 }
 /*
 if(Meteor.users.find({username:'admin'}).count()>0)

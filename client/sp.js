@@ -30,7 +30,26 @@ Template.classes.class = function(){
     return Meteor.users.find({roles:'student'});
   }
 
+  Template.insertStudent1.events({
+    'click .save': function (evt, tmpl) {
+      var firstName = tmpl.find('.firstName').value;
+      var lastName = tmpl.find('.lastName').value;
+      var email = tmpl.find('.email').value;
+      var password = tmpl.find('.password').value;
+      var tel = tmpl.find('.tel').value;
+      var address = tmpl.find('.address').value;
+      var birthday = tmpl.find('.birthday').value;
+      var gender = tmpl.find('.gender').value;
+      var isActive = tmpl.find('.isActive').value;
 
+      insertStudent(firstName, lastName, email, password, address, birthday, isActive, tel, gender)
+    }
+  });
+
+var insertStudent = function(firstName, lastName, email, password, address, birthday, isActive, tel, gender){
+    Meteor.users.insert({firstName:firstName, lastName:lastName, emails:[{address:email, verified:false}], password:password, address:address,
+      birthday:birthday, isActive:isActive, roles:'student', tel:tel, gender:gender});
+};
 ClassLevels = new Meteor.Collection('classlevels');
 Classes = new Meteor.Collection('classes');
 
@@ -82,6 +101,9 @@ UserProfileSchema = new SimpleSchema({
     birthday: {
         type: Date,
         optional: true
+    },
+    isActive:{
+      type:Boolean
     }
 });
 UserSchema = new SimpleSchema({
@@ -93,7 +115,11 @@ UserSchema = new SimpleSchema({
       type:String,
       label:"Password"
     },
-    emails: {
+    email:{
+      type:String,
+      label:"Password"
+    },
+   /* emails: {
         type: [Object]
     },
     "emails.$.address": {
@@ -102,7 +128,7 @@ UserSchema = new SimpleSchema({
     },
     "emails.$.verified": {
         type: Boolean
-    },
+    },*/
     createdAt: {
         type: Date
     },

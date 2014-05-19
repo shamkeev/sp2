@@ -7,6 +7,12 @@ Router.map(function(){
 			'menu':{to:'menu'}
 		}
 	});
+	this.route('profile',{
+		layoutTemplate:'profile',
+		yieldTemplates:{
+			'menu':{to:'menu'}
+		}
+	});
 	this.route('classes',{
 		layoutTemplate:'layout',
 		yieldTemplates:{
