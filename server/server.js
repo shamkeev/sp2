@@ -24,7 +24,7 @@ Students = new Meteor.Collection('students');
 
 
 }
-
+/*
 if(Meteor.users.find({username:'admin'}).count()>0)
 	Accounts.validateNewUser(function (user) {
     var loggedInUser = Meteor.user();
@@ -34,5 +34,5 @@ if(Meteor.users.find({username:'admin'}).count()>0)
     }
 
     throw new Meteor.Error(403, "Not authorized to create new users");
-});
+});*/
 	
