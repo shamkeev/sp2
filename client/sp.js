@@ -1,7 +1,7 @@
 UI.registerHelper("levelOptions", function(){
   lvls = ClassLevels.find();
   levels = lvls.map(function(lvls){
-    return {label:lvls.name, value:lvls._id}
+    return {label:lvls.name, value:lvls.name}
   });
   return levels;
 });
@@ -20,9 +20,6 @@ Template.classlevels.classLevels = function(){
 Template.classes.class = function(){
   return Classes.find();
 };
-  Template.students.Students = function(){
-    return Students.find();
-  };
 
   Template.updateClass.editingDoc = function () {
   return Classes.findOne({_id: Session.get("selectedDocId")});
@@ -31,13 +28,7 @@ Template.classes.class = function(){
 
 ClassLevels = new Meteor.Collection('classlevels');
 Classes = new Meteor.Collection('classes');
-Students = new Meteor.Collection('students');
-studentSchema = new SimpleSchema({
-  name:{
-    type:String
-  }
-});
-Students.attachSchema(studentSchema);
+
 levelSchema = new SimpleSchema({
   name:{
     type:String,
@@ -62,7 +53,6 @@ classSchema = new SimpleSchema({
 
 ClassLevels.attachSchema(levelSchema);
 Classes.attachSchema(classSchema);
-
   
 }
 
