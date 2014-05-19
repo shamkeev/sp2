@@ -44,6 +44,21 @@ Router.map(function(){
 			'menu':{to:'menu'}
 		}
 	});
+	this.route('admin', {
+    path:'/admin',
+    template: 'accountsAdmin',
+    layoutTemplate:'adminlayout',
+
+    onBeforeAction: function() {
+      if (Meteor.loggingIn()) {
+        this.render(this.loadingTemplate);
+      } else if(!Roles.userIsInRole(Meteor.user(), ['admin'])) {
+        console.log('redirecting');
+        this.redirect('/');
+      }
+    }
+  });
+
 });
 
 Router.configure({

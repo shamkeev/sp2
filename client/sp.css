@@ -2,3 +2,23 @@
 #deleteTD{
 	width: 10px;
 }
+#loginbtns{
+	margin-top: 15px;
+}
+
+.btn-custom {
+  background-color: hsl(186, 66%, 39%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2197a5", endColorstr="#2197a5");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#2197a5), to(#2197a5));
+  background-image: -moz-linear-gradient(top, #2197a5, #2197a5);
+  background-image: -ms-linear-gradient(top, #2197a5, #2197a5);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #2197a5), color-stop(100%, #2197a5));
+  background-image: -webkit-linear-gradient(top, #2197a5, #2197a5);
+  background-image: -o-linear-gradient(top, #2197a5, #2197a5);
+  background-image: linear-gradient(#2197a5, #2197a5);
+  border-color: #2197a5 #2197a5 hsl(186, 66%, 39%);
+  color: #fff !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.00);
+  -webkit-font-smoothing: antialiased;
+}
