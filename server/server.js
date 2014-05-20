@@ -3,10 +3,19 @@
 if (Meteor.isServer) {
 Meteor.methods({
  
-    addUser: function (email, password,role) {
+    addUser: function (email,password,role,firstName,lastName,tel,address,birthday,gender,isActive) {
       var id = Accounts.createUser({
         'email':email,
-        'password':password
+        'password':password,
+        'profile':{
+          'firstName':firstName,
+          'lastName':lastName,
+          'tel':tel,
+          'address':address,
+          'birthday':birthday,
+          'gender':gender,
+          'isActive':isActive
+        }
       });
       Roles.addUsersToRoles(id,[role]);
       return id;

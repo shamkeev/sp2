@@ -5,7 +5,7 @@ UI.registerHelper("levelOptions", function(){
   });
   return levels;
 });
-UI.registerHelper("Meteor", Meteor);
+UI.registerHelper("MeteorUsers", Meteor.users);
 
 if (Meteor.isClient) {
   Template.classes.classLevels = function(){
@@ -39,26 +39,10 @@ Template.classes.class = function(){
       Meteor.loginWithPassword(email, password);
     }
   });
-  Template.fortest.events({
-    'click .test': function (evt, templ) {
-      // ...
-
-    Accounts.createUser({
-      'username': 'test',
-      'email': 'test@test.com',
-      'password': 'test'
-    });
-    Roles.addUsersToRoles(Meteor.users.find({username: 'test'}).fetch(), ['student']);
-    
-  }
-});
-var insertStudent = function(firstName, lastName, email, password, address, birthday, isActive, tel, gender){
-    Meteor.users.insert({firstName:firstName, lastName:lastName, emails:[{address:email, verified:false}], password:password, address:address,
-      birthday:birthday, isActive:isActive, roles:'student', tel:tel, gender:gender});
 
     //Meteor.users.insert({emails:[address:email, verified:false],username:firstName'.'lastName,password:password,createdAt:new Date(),
-     // profile:[firstName:firstName, lastName:lastName, address:address, birthday:birthday,isActive:isActive,tel:tel,gender:gender]}, callback);
-};
+     // profile:[firstName:firstName, lastName:lastName, address:address, birthday:birthday,isActive:isActive,
+     
 ClassLevels = new Meteor.Collection('classlevels');
 Classes = new Meteor.Collection('classes');
 
@@ -82,7 +66,8 @@ classSchema = new SimpleSchema({
       label:'Comment',
       max:300
     }
-});/*
+});
+/*
 UserProfileSchema = new SimpleSchema({
     firstName: {
         type: String,
@@ -112,66 +97,41 @@ UserProfileSchema = new SimpleSchema({
         optional: true
     },
     isActive:{
-      type:Boolean
+      type:Boolean,
+      label:'Check if the user is Active'
     }
 });
 UserSchema = new SimpleSchema({
-    username: {
-        type: String,
-        regEx: /^[a-z0-9A-Z_]{3,15}$/
-    },
-   /* password:{
-      type:String,
-      label:"Password"
-    },
-    email:{
-      type:String,
-      label:"Password"
-    },
-    emails: {
-        type: [Object]
-    },
-    "emails.$.address": {
-        type: String,
-        regEx: SimpleSchema.RegEx.Email
-    },
-    "emails.$.verified": {
-        type: Boolean
-    },
-    createdAt: {
-        type: Date
-    },
     profile: {
         type: UserProfileSchema,
         optional: true
     }
-});
+});*/
 
+  Template.insertStudent2.editingDoc = function(){
+    return Session.get('newUserIdFromServer');
+  };
 
-Meteor.users.attachSchema(UserSchema);*/
+//Meteor.users.attachSchema(UserSchema);
 ClassLevels.attachSchema(levelSchema);
 Classes.attachSchema(classSchema);
 
   Template.insertStudent2.events({
     'click .save': function (evt, tmpl) {
       var firstName = tmpl.find('.firstName').value;
-     // var lastName = tmpl.find('.lastName').value;
+      var lastName = tmpl.find('.lastName').value;
       var email = tmpl.find('.email').value;
       var password = tmpl.find('.password').value;
       var role = 'student';
-     // var tel = tmpl.find('.tel').value;
-     // var address = tmpl.find('.address').value;
-    //  var birthday = tmpl.find('.birthday').value;
-     // var gender = tmpl.find('.gender').value;
-     // var isActive = tmpl.find('.isActive').value;
-     // insertStudent(firstName, lastName, email, password, address, birthday, isActive, tel, gender)
-     // Meteor.call('createUser',)
-     Meteor.call('addUser',email,password,role, function(err, response){
+      var tel = tmpl.find('.tel').value;
+      var address = tmpl.find('.address').value;
+      var birthday = tmpl.find('.birthday').value;
+      var gender = tmpl.find('.gender').value;
+      var isActive = tmpl.find('.isActive').value;
+     Meteor.call('addUser',email,password,role,firstName,lastName,tel,address,birthday,gender,isActive, function(err, response){
       Session.set('newUserIdFromServer',response);
-      Meteor.users.update({_id:response}, {$set:{profile:[firstName:firstName]});
+      //Meteor.users.update({_id:response}, {$set:{profile:['firstName':firstName]});
      });
-      
-     //Meteor.users.update( { _id: Meteor.userId() }, { $set: { 'profile.online': true }} );
     }
   });
 }
