@@ -1,12 +1,3 @@
-UI.registerHelper("levelOptions", function(){
-  lvls = ClassLevels.find();
-  levels = lvls.map(function(lvls){
-    return {label:lvls.name, value:lvls.name}
-  });
-  return levels;
-});
-UI.registerHelper("MeteorUsers", Meteor.users);
-
 if (Meteor.isClient) {
   Template.classes.classLevels = function(){
   return ClassLevels.find();
@@ -30,12 +21,15 @@ Template.classes.class = function(){
     return Meteor.users.find({roles:'student'});
   }
 
-  
+  Template.teachers.teacherList = function(){
+    return Meteor.users.find({roles:'teacher'});
+  }
 
   Template.profile.events({
     'click .login': function (evt, tmpl) {
       var email = tmpl.find('.email').value;
       var password = tmpl.find('.password').value;
+
       Meteor.loginWithPassword(email, password);
     }
   });
@@ -116,6 +110,7 @@ UserSchema = new SimpleSchema({
 ClassLevels.attachSchema(levelSchema);
 Classes.attachSchema(classSchema);
 
+//this one calls a method from the server and creates new student
   Template.insertStudent2.events({
     'click .save': function (evt, tmpl) {
       var firstName = tmpl.find('.firstName').value;
@@ -134,5 +129,24 @@ Classes.attachSchema(classSchema);
      });
     }
   });
+  Template.insertTeacher.events({
+    'click .save': function (evt, tmpl) {
+      var firstName = tmpl.find('.firstName').value;
+      var lastName = tmpl.find('.lastName').value;
+      var email = tmpl.find('.email').value;
+      var password = tmpl.find('.password').value;
+      var role = 'teacher';
+      var tel = tmpl.find('.tel').value;
+      var address = tmpl.find('.address').value;
+      var birthday = tmpl.find('.birthday').value;
+      var gender = tmpl.find('.gender').value;
+      var isActive = tmpl.find('.isActive').value;
+     Meteor.call('addUser',email,password,role,firstName,lastName,tel,address,birthday,gender,isActive, function(err, response){
+      Session.set('newUserIdFromServer',response);
+      //Meteor.users.update({_id:response}, {$set:{profile:['firstName':firstName]});
+     });
+    }
+  });
+
 }
 

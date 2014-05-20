@@ -4,7 +4,7 @@
 	{{>updateClass}}
 	<div class="row">
 		<h3>Groups list</h3>
-		<table class="table table-bordered table-striped table-hover">
+		<table class="table table-bordered table-condensed table-striped table-hover">
 			<thead>
 				<th>Group Name</th>
 				<th>Group Level</th>
@@ -16,7 +16,8 @@
 						<td>{{name}}</td>
 						<td>{{level}}</td>
 						<td>{{comment}}</td>
-						<td id="deleteTD">{{> afDeleteButton collection="Classes" doc=editingDoc}}</td>
+						<td style="width:5px"><button type="button" class="btn btn-xs btn-link edit"><span class="glyphicon glyphicon-pencil"></span></button></td>
+						<td style="width:5px"><button type="button" class="btn btn-xs btn-link remove"><span class="glyphicon glyphicon-trash"></span></button></td>
 					</tr>
 				{{/each}}
 			</tbody>
@@ -104,15 +105,24 @@
 
 <template name="classlevels">
 	{{>insertClassLevel}}
-	<table class="table table-bordered table-striped table-hover">
+	<table class="table table-bordered table-condensed table-striped table-hover">
 		<thead>
 			<th>Class Level</th>
 		</thead>
 		<tbody>
 			{{#each classLevels}}
-				<tr><td>{{name}}</td></tr>
+				<tr>
+					<td>{{name}}</td>
+					<td style="width:5px"><button type="button" class="btn btn-xs btn-link edit"><span class="glyphicon glyphicon-pencil"></span></button></td>
+					<td style="width:5px"><button type="button" class="btn btn-xs btn-link remove"><span class="glyphicon glyphicon-trash"></span></button></td>
+
+				</tr>
 			{{/each}}
 		</tbody>
 	</table>
 
+</template>
+
+<template name="classinfo">
+	
 </template>

@@ -6,6 +6,14 @@ Handlebars.registerHelper("formatDate", function(datetime){
 		return datetime;
 	}
 });
+UI.registerHelper("levelOptions", function(){
+  lvls = ClassLevels.find();
+  levels = lvls.map(function(lvls){
+    return {label:lvls.name, value:lvls.name}
+  });
+  return levels;
+});
+UI.registerHelper("MeteorUsers", Meteor.users);
 
 
 //return userName or email

@@ -14,14 +14,32 @@ Router.map(function(){
 		yieldTemplates:{
 			'cleft':{to:'left'},
 			'menu':{to:'menu'}
-		}
+		},
+		onBeforeAction: function() {
+      if (Meteor.loggingIn()) {
+        this.render(this.loadingTemplate);
+      } else if(!Roles.userIsInRole(Meteor.user(), ['admin'])) {
+        console.log('redirecting');
+        this.redirect('/');
+      }
+    }
+
 	});
 	this.route('classlevels',{
 		layoutTemplate:'layout',
 		yieldTemplates:{
 			'cleft':{to:'left'},
 			'menu':{to:'menu'}
-		}
+		},
+		onBeforeAction: function() {
+      if (Meteor.loggingIn()) {
+        this.render(this.loadingTemplate);
+      } else if(!Roles.userIsInRole(Meteor.user(), ['admin'])) {
+        console.log('redirecting');
+        this.redirect('/');
+      }
+    }
+
 	});
 
 	this.route('students',{
@@ -29,22 +47,49 @@ Router.map(function(){
 		yieldTemplates:{
 			'sleft':{to:'left'},
 			'menu':{to:'menu'}
-		}
+		},
+		onBeforeAction: function() {
+      if (Meteor.loggingIn()) {
+        this.render(this.loadingTemplate);
+      } else if(!Roles.userIsInRole(Meteor.user(), ['admin'])) {
+        console.log('redirecting');
+        this.redirect('/');
+      }
+    }
+
 	});
 	this.route('teachers',{
 		layoutTemplate:'layout',
 		yieldTemplates:{
 			'tleft':{to:'left'},
 			'menu':{to:'menu'}
-		}
+		},
+		onBeforeAction: function() {
+      if (Meteor.loggingIn()) {
+        this.render(this.loadingTemplate);
+      } else if(!Roles.userIsInRole(Meteor.user(), ['admin'])) {
+        console.log('redirecting');
+        this.redirect('/');
+      }
+    }
+
 	});
-	this.route('rooms',{
+	this.route('schedule',{
 		layoutTemplate:'layout',
 		notFoundTemplate:'notFound',
 		yieldTemplates:{
-			'rleft':{to:'left'},
+			'scleft':{to:'left'},
 			'menu':{to:'menu'}
-		}
+		},
+		onBeforeAction: function() {
+      if (Meteor.loggingIn()) {
+        this.render(this.loadingTemplate);
+      } else if(!Roles.userIsInRole(Meteor.user(), ['admin'])) {
+        console.log('redirecting');
+        this.redirect('/');
+      }
+    }
+
 	});
 	this.route('admin', {
     path:'/admin',
@@ -62,6 +107,10 @@ Router.map(function(){
   });
 
 });
+
+var CheckUserRole = function(){
+
+};
 
 Router.configure({
 	layoutTemplate:'layout',

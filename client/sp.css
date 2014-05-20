@@ -6,6 +6,13 @@
 	margin-top: 15px;
 }
 
+.btn-edit{
+  background-color: yellow;
+}
+
+.btn-remove{
+  background-color: red;
+}
 .btn-custom {
   background-color: hsl(186, 66%, 39%) !important;
   background-repeat: repeat-x;

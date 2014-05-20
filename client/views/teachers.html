@@ -1,5 +1,132 @@
 <template name="teachers">
+	{{>insertTeacher}}
 	<div class="page-header">
 	  <h1>Teachers<small>subtext</small></h1>
 	</div>
+	<table class="table table-bordered table-hover table-condensed">
+		<thead>
+			<tr>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Email</th>
+				<th>Address</th>
+				<th>Telephone</th>
+				<th>Birthdate</th>
+				<th>Gender</th>
+				<th>Active</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each teacherList}}
+				<tr>
+					<td>{{profile.firstName}}</td>
+					<td>{{profile.lastName}}</td>
+					<td>{{#each emails}}{{address}}&nbsp;{{/each}}</td>	
+					<td>{{profile.address}}</td>
+					<td>{{profile.tel}}</td>
+					<td>{{profile.birthday}}</td>
+					<td>{{profile.gender}}</td>
+					{{#if profile.isActive}}
+						<td>Active</td>
+						{{else}}
+						<td>Not Active</td>
+					{{/if}}
+					<td style="width:5px"><button type="button" class="btn btn-xs btn-link edit"><span class="glyphicon glyphicon-pencil"></span></button></td>
+					<td style="width:5px"><button type="button" class="btn btn-xs btn-link remove"><span class="glyphicon glyphicon-trash"></span></button></td>
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+
 </template>
+
+<template name="tleft">
+	<div class="btn-group-vertical">
+		<a class="btn btn-primary" data-toggle="modal" href='#modal-id-insertTeacher'>Add New Teacher</a>
+	</div>
+</template>
+
+<template name="insertTeacher">
+	<div class="modal fade" id="modal-id-insertTeacher">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Insert Teacher</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+					    <label for="inputEmail3" class="col-sm-4 control-label">First Name</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control firstName" required="required" placeholder="First Name">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="inputEmail3" class="col-sm-4 control-label">Last Name</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control lastName" required="required" placeholder="Last Name">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="inputEmail3" class="col-sm-4 control-label">Email</label>
+					    <div class="col-sm-8">
+					      <input type="email" class="form-control email" required="required"  placeholder="Email">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="inputPassword3" class="col-sm-4 control-label">Password</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control password" required="required" placeholder="Password (hand it to the student personally)">
+					    </div>
+					  </div>
+
+					  <div class="form-group">
+					    <label for="inputEmail3" class="col-sm-4 control-label">Address</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control address" required="required" placeholder="Address">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="inputEmail3" class="col-sm-4 control-label">Telephone</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control tel" required="required" placeholder="Telephone">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="inputEmail3" class="col-sm-4 control-label">Gender</label>
+					    <div class="col-sm-8">
+					      <select name="owner" id="owner" class="gender" required="required" >
+  							<option value="Male">Male</option>
+  							<option value="Female">Female</option>
+							</select>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="inputEmail3" class="col-sm-4 control-label">Birthday</label>
+					    <div class="col-sm-8">
+					      <input type="date" class="form-control birthday" required="required" placeholder="Birthday">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="inputEmail3" class="col-sm-4 control-label">Active</label>
+					    <div class="col-sm-8">
+					      <div class="checkbox">
+					    	<label>
+					    		<input type="checkbox" value="" class="isActive" required="required" >
+					    		Check if Active
+					    	</label>
+					    </div>
+					    </div>
+					  </div>
+					</form>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary save" data-dismiss="modal">Save changes</button>
+					</div>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+</template>
+
