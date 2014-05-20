@@ -1,7 +1,28 @@
 if (Meteor.isClient) {
+
+//sessions
+Template.insertStudent2.editingDoc = function(){
+    return Session.get('newUserIdFromServer');
+  };
+
+Template.updateClass1.editingDoc = function () {
+  return Classes.findOne({_id: Session.get("selectedDocId")});
+};
+
+//helpers
   Template.classes.classLevels = function(){
   return ClassLevels.find();
 };
+Template.schedule.room = function(){
+  return Rooms.find();
+};
+Template.schedule.timesection = function(){
+  return TimeSections.find();
+};
+Template.schedule.schedule = function(){
+  return Schedule.find();
+}
+
 Template.classlevels.classLevels = function(){
   return ClassLevels.find();
 };
@@ -13,10 +34,6 @@ Template.classes.class = function(){
   return Classes.find();
 };
 
-  Template.updateClass.editingDoc = function () {
-  return Classes.findOne({_id: Session.get("selectedDocId")});
-};
-
   Template.students.studentList = function(){
     return Meteor.users.find({roles:'student'});
   }
@@ -24,6 +41,13 @@ Template.classes.class = function(){
   Template.teachers.teacherList = function(){
     return Meteor.users.find({roles:'teacher'});
   }
+
+//events
+  Template.classes.events({
+    'dbclick .classItem': function () {
+      Session.set('selectedDocId');
+    }
+  });
 
   Template.profile.events({
     'click .login': function (evt, tmpl) {
@@ -34,11 +58,67 @@ Template.classes.class = function(){
     }
   });
 
-    //Meteor.users.insert({emails:[address:email, verified:false],username:firstName'.'lastName,password:password,createdAt:new Date(),
-     // profile:[firstName:firstName, lastName:lastName, address:address, birthday:birthday,isActive:isActive,
-     
+
+//this one calls a method from the server and creates new student
+  Template.insertStudent2.events({
+    'click .save': function (evt, tmpl) {
+      var firstName = tmpl.find('.firstName').value;
+      var lastName = tmpl.find('.lastName').value;
+      var email = tmpl.find('.email').value;
+      var password = tmpl.find('.password').value;
+      var role = 'student';
+      var tel = tmpl.find('.tel').value;
+      var address = tmpl.find('.address').value;
+      var birthday = tmpl.find('.birthday').value;
+      var gender = tmpl.find('.gender').value;
+      var isActive = tmpl.find('.isActive').value;
+     Meteor.call('addUser',email,password,role,firstName,lastName,tel,address,birthday,gender,isActive, function(err, response){
+      Session.set('newUserIdFromServer',response);
+      //Meteor.users.update({_id:response}, {$set:{profile:['firstName':firstName]});
+     });
+    }
+  });
+  Template.insertTeacher.events({
+    'click .save': function (evt, tmpl) {
+      var firstName = tmpl.find('.firstName').value;
+      var lastName = tmpl.find('.lastName').value;
+      var email = tmpl.find('.email').value;
+      var password = tmpl.find('.password').value;
+      var role = 'teacher';
+      var tel = tmpl.find('.tel').value;
+      var address = tmpl.find('.address').value;
+      var birthday = tmpl.find('.birthday').value;
+      var gender = tmpl.find('.gender').value;
+      var isActive = tmpl.find('.isActive').value;
+     Meteor.call('addUser',email,password,role,firstName,lastName,tel,address,birthday,gender,isActive, function(err, response){
+      Session.set('newUserIdFromServer',response);
+      //Meteor.users.update({_id:response}, {$set:{profile:['firstName':firstName]});
+     });
+    }
+  });
+
+  Template.insertRoom.events({
+    'click .save': function (evt, tmpl) {
+      var name = tmpl.find('.name').value;
+
+      Rooms.insert({name:name});
+    }
+  });
+  Template.insertTime.events({
+    'click .save': function (evt, tmpl) {
+      var start = tmpl.find('.start').value;
+      var end = tmpl.find('.end').value;
+      TimeSections.insert({start:start, end:end});
+    }
+  });
+
+  //define collections here:
 ClassLevels = new Meteor.Collection('classlevels');
 Classes = new Meteor.Collection('classes');
+Rooms = new Meteor.Collection('rooms');
+TimeSections = new Meteor.Collection('timesections');
+Schedule = new Meteor.Collection('schedule');
+
 
 levelSchema = new SimpleSchema({
   name:{
@@ -102,51 +182,11 @@ UserSchema = new SimpleSchema({
     }
 });*/
 
-  Template.insertStudent2.editingDoc = function(){
-    return Session.get('newUserIdFromServer');
-  };
-
 //Meteor.users.attachSchema(UserSchema);
 ClassLevels.attachSchema(levelSchema);
 Classes.attachSchema(classSchema);
-
-//this one calls a method from the server and creates new student
-  Template.insertStudent2.events({
-    'click .save': function (evt, tmpl) {
-      var firstName = tmpl.find('.firstName').value;
-      var lastName = tmpl.find('.lastName').value;
-      var email = tmpl.find('.email').value;
-      var password = tmpl.find('.password').value;
-      var role = 'student';
-      var tel = tmpl.find('.tel').value;
-      var address = tmpl.find('.address').value;
-      var birthday = tmpl.find('.birthday').value;
-      var gender = tmpl.find('.gender').value;
-      var isActive = tmpl.find('.isActive').value;
-     Meteor.call('addUser',email,password,role,firstName,lastName,tel,address,birthday,gender,isActive, function(err, response){
-      Session.set('newUserIdFromServer',response);
-      //Meteor.users.update({_id:response}, {$set:{profile:['firstName':firstName]});
-     });
-    }
-  });
-  Template.insertTeacher.events({
-    'click .save': function (evt, tmpl) {
-      var firstName = tmpl.find('.firstName').value;
-      var lastName = tmpl.find('.lastName').value;
-      var email = tmpl.find('.email').value;
-      var password = tmpl.find('.password').value;
-      var role = 'teacher';
-      var tel = tmpl.find('.tel').value;
-      var address = tmpl.find('.address').value;
-      var birthday = tmpl.find('.birthday').value;
-      var gender = tmpl.find('.gender').value;
-      var isActive = tmpl.find('.isActive').value;
-     Meteor.call('addUser',email,password,role,firstName,lastName,tel,address,birthday,gender,isActive, function(err, response){
-      Session.set('newUserIdFromServer',response);
-      //Meteor.users.update({_id:response}, {$set:{profile:['firstName':firstName]});
-     });
-    }
-  });
+//Rooms.attachSchema(roomSchema);
+//TimeSections.attachSchema(timeSectionSchema);
 
 }
 

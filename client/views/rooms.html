@@ -1,9 +1,126 @@
 <template name="schedule">
+	{{>insertTime}}
+	{{>insertRoom}}
 	<div class="page-header">
-	  <h1>Rooms<small>subtext</small></h1>
+	  <h1>Schedule<small>info</small></h1>
 	</div>
+	<table class="table table-bordered table-hover table-striped">
+		<thead>
+			<tr>
+				<th>Time<span class="glyphicon glyphicon-arrow-down"></span> </th>
+				{{#each room}}
+					<th>{{name}}</th>
+				{{/each}}
+			</tr>
+		</thead>
+		<tbody>
+			{{#each timesection}}
+				<tr>
+					<td>{{start}} - {{start}}</td>
+					{{#each room}}
+						
+						<td class="success emptyRoom"></td>
+					
+					{{/each}}
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+
+</template>
+
+<template name="schedule1">
+	{{>insertTime}}
+	{{>insertRoom}}
+	<div class="page-header">
+	  <h1>Schedule<small>info</small></h1>
+	</div>
+	<table class="table table-bordered table-hover table-striped">
+		<thead>
+			<tr>
+				<th>Time<span class="glyphicon glyphicon-arrow-down"></span> </th>
+				{{#each room}}
+					<th>{{name}}</th>
+				{{/each}}
+			</tr>
+		</thead>
+		<tbody>
+			{{#each timesection}}
+				<tr>
+					<td>{{start}}  -  {{end}}</td>
+					{{#each room}}
+							<td class="success emptyRoom"></td>
+						
+					{{/each}}
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+
 </template>
 
 <template name="scleft">
+	<div class="btn-group-vertical">
+		<a class="btn btn-primary" data-toggle="modal" href='#modal-id-newRoom'>Add New Room</a>
+		<a class="btn btn-primary" data-toggle="modal" href='#modal-id-addNewTimeSection'>Add New Time Section</a>
+	</div>
+</template>
 
+<template name="insertRoom">
+<div class="modal fade" id="modal-id-newRoom">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Add New Room</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" role="form">
+						<div class="form-group">
+					    <label for="inputEmail3" class="col-sm-4 control-label">Room Name</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control name" required="required" placeholder="Name">
+					    </div>
+					  </div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary save">Save changes</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</template>
+
+<template name="insertTime">
+<div class="modal fade" id="modal-id-addNewTimeSection">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Add Time Section</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+					    <label for="inputEmail3" class="col-sm-4 control-label">Start Time</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control start" required="required" placeholder="Start Time">
+					    </div>
+					    <label for="inputEmail3" class="col-sm-4 control-label">End Time</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control end" required="required" placeholder="End Time">
+					    </div>
+				  	</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary save">Save changes</button>
+			</div>
+
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 </template>

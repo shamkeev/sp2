@@ -25,7 +25,9 @@ Meteor.methods({
 
 ClassLevels = new Meteor.Collection('classlevels');
 Classes = new Meteor.Collection('classes');
-Students = new Meteor.Collection('students');
+Rooms = new Meteor.Collection('rooms');
+TimeSections = new Meteor.Collection('timesections');
+Schedule = new Meteor.Collection('schedule');
 
   Meteor.startup(function () {
     // code to run on server at startup

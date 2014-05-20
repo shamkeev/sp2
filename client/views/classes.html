@@ -12,7 +12,7 @@
 			</thead>
 			<tbody>
 				{{#each class}}
-					<tr>
+					<tr class="classItem">
 						<td>{{name}}</td>
 						<td>{{level}}</td>
 						<td>{{comment}}</td>
@@ -121,6 +121,10 @@
 		</tbody>
 	</table>
 
+</template>
+
+<template name="updateClass1">
+	{{>afQuickForm collection="Classes" doc=editingDoc id="updateClass" type="update"}}
 </template>
 
 <template name="classinfo">

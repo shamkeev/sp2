@@ -5,6 +5,9 @@
 #loginbtns{
 	margin-top: 15px;
 }
+.carousel-inner > .item > img {
+    margin: 0 auto;
+}
 
 .btn-edit{
   background-color: yellow;
@@ -13,7 +16,7 @@
 .btn-remove{
   background-color: red;
 }
-.btn-custom {
+.btn-primary {
   background-color: hsl(186, 66%, 39%) !important;
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2197a5", endColorstr="#2197a5");
@@ -29,3 +32,4 @@
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.00);
   -webkit-font-smoothing: antialiased;
 }
+
