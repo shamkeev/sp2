@@ -7,6 +7,7 @@ Handlebars.registerHelper("formatDate", function(datetime){
 	}
 });
 
+
 //return userName or email
 Handlebars.registerHelper('userEmail', function(){
 	return Meteor.user().emails[0].address;

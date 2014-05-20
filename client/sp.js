@@ -30,25 +30,34 @@ Template.classes.class = function(){
     return Meteor.users.find({roles:'student'});
   }
 
-  Template.insertStudent1.events({
-    'click .save': function (evt, tmpl) {
-      var firstName = tmpl.find('.firstName').value;
-      var lastName = tmpl.find('.lastName').value;
+  
+
+  Template.profile.events({
+    'click .login': function (evt, tmpl) {
       var email = tmpl.find('.email').value;
       var password = tmpl.find('.password').value;
-      var tel = tmpl.find('.tel').value;
-      var address = tmpl.find('.address').value;
-      var birthday = tmpl.find('.birthday').value;
-      var gender = tmpl.find('.gender').value;
-      var isActive = tmpl.find('.isActive').value;
-
-      insertStudent(firstName, lastName, email, password, address, birthday, isActive, tel, gender)
+      Meteor.loginWithPassword(email, password);
     }
   });
+  Template.fortest.events({
+    'click .test': function (evt, templ) {
+      // ...
 
+    Accounts.createUser({
+      'username': 'test',
+      'email': 'test@test.com',
+      'password': 'test'
+    });
+    Roles.addUsersToRoles(Meteor.users.find({username: 'test'}).fetch(), ['student']);
+    
+  }
+});
 var insertStudent = function(firstName, lastName, email, password, address, birthday, isActive, tel, gender){
     Meteor.users.insert({firstName:firstName, lastName:lastName, emails:[{address:email, verified:false}], password:password, address:address,
       birthday:birthday, isActive:isActive, roles:'student', tel:tel, gender:gender});
+
+    //Meteor.users.insert({emails:[address:email, verified:false],username:firstName'.'lastName,password:password,createdAt:new Date(),
+     // profile:[firstName:firstName, lastName:lastName, address:address, birthday:birthday,isActive:isActive,tel:tel,gender:gender]}, callback);
 };
 ClassLevels = new Meteor.Collection('classlevels');
 Classes = new Meteor.Collection('classes');
@@ -73,7 +82,7 @@ classSchema = new SimpleSchema({
       label:'Comment',
       max:300
     }
-});
+});/*
 UserProfileSchema = new SimpleSchema({
     firstName: {
         type: String,
@@ -111,7 +120,7 @@ UserSchema = new SimpleSchema({
         type: String,
         regEx: /^[a-z0-9A-Z_]{3,15}$/
     },
-    password:{
+   /* password:{
       type:String,
       label:"Password"
     },
@@ -119,7 +128,7 @@ UserSchema = new SimpleSchema({
       type:String,
       label:"Password"
     },
-   /* emails: {
+    emails: {
         type: [Object]
     },
     "emails.$.address": {
@@ -128,7 +137,7 @@ UserSchema = new SimpleSchema({
     },
     "emails.$.verified": {
         type: Boolean
-    },*/
+    },
     createdAt: {
         type: Date
     },
@@ -139,9 +148,31 @@ UserSchema = new SimpleSchema({
 });
 
 
-Meteor.users.attachSchema(UserSchema);
+Meteor.users.attachSchema(UserSchema);*/
 ClassLevels.attachSchema(levelSchema);
 Classes.attachSchema(classSchema);
-  
+
+  Template.insertStudent2.events({
+    'click .save': function (evt, tmpl) {
+      var firstName = tmpl.find('.firstName').value;
+     // var lastName = tmpl.find('.lastName').value;
+      var email = tmpl.find('.email').value;
+      var password = tmpl.find('.password').value;
+      var role = 'student';
+     // var tel = tmpl.find('.tel').value;
+     // var address = tmpl.find('.address').value;
+    //  var birthday = tmpl.find('.birthday').value;
+     // var gender = tmpl.find('.gender').value;
+     // var isActive = tmpl.find('.isActive').value;
+     // insertStudent(firstName, lastName, email, password, address, birthday, isActive, tel, gender)
+     // Meteor.call('createUser',)
+     Meteor.call('addUser',email,password,role, function(err, response){
+      Session.set('newUserIdFromServer',response);
+      Meteor.users.update({_id:response}, {$set:{profile:[firstName:firstName]});
+     });
+      
+     //Meteor.users.update( { _id: Meteor.userId() }, { $set: { 'profile.online': true }} );
+    }
+  });
 }
 

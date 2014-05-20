@@ -1,5 +1,6 @@
 <template name="students">
-	{{>insertStudent1}}
+	{{>insertStudent2}}
+	{{>fortest}}
 	<h4>student list</h4>
 	<table class="table table-bordered table-hover">
 		<thead>
@@ -16,24 +17,28 @@
 		<tbody>
 			{{#each studentList}}
 				<tr>
-					<th>{{firstName}}</th>
-					<th>{{lastName}}</th>
+					<td>{{firstName}}</td>
+					<td>{{lastName}}</td>
 					
-					<th>{{#each emails}}{{address}}&nbsp;{{/each}}</th>
+					<td>{{#each emails}}{{address}}&nbsp;{{/each}}</td>
 					
-					<th>{{address}}</th>
-					<th>{{tel}}</th>
-					<th>{{birthday}}</th>
-					<th>{{gender}}</th>
+					<td>{{address}}</td>
+					<td>{{tel}}</td>
+					<td>{{birthday}}</td>
+					<td>{{gender}}</td>
 				</tr>
 			{{/each}}
 		</tbody>
 	</table>
 </template>
 
+<template name="fortest">
+	<button class="btn btn-primary test">test</button>
+</template>
+
 <template name="sleft">
 	<div class="btn-group-vertical">
-			<a class="btn btn-primary" data-toggle="modal" href='#modal-id-insertStudent1'>Add New Student</a>
+			<a class="btn btn-primary" data-toggle="modal" href='#modal-id-insertStudent2'>Add New Student</a>
 		</div>
 </template>
 
@@ -46,7 +51,7 @@
 					<h4 class="modal-title">Add Student</h4>
 				</div>
 				<div class="modal-body">
-					{{>quickForm collection=Meteor.users id="insertStudent" type="insert"}}
+					{{>quickForm collection=Meteor.users id="insertStudent" doc=userProfile type="insert"}}
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
@@ -93,6 +98,40 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					<button type="button" class="btn btn-primary save">Save changes</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+</template>
+
+<template name="insertStudent2">
+	<div class="modal fade" id="modal-id-insertStudent2">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Insert Student</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form">
+					  <div class="form-group">
+					    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+					    <div class="col-sm-10">
+					      <input type="email" class="form-control email" id="inputEmail3" placeholder="Email">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+					    <div class="col-sm-10">
+					      <input type="password" class="form-control password" id="inputPassword3" placeholder="Password">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <div class="col-sm-offset-2 col-sm-10">
+					      <button type="submit" class="btn btn-primary save" data-dismiss="modal">Save</button>
+					    </div>
+					  </div>
+					</form>
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->

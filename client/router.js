@@ -1,11 +1,7 @@
 Router.map(function(){
 	this.route('home',{
 		path:'/',
-		layoutTemplate:'layout',
-		yieldTemplates:{
-			'hleft':{to:'left'},
-			'menu':{to:'menu'}
-		}
+		layoutTemplate:'homelayout'
 	});
 	this.route('profile',{
 		layoutTemplate:'profile',

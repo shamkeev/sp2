@@ -1,6 +1,18 @@
 //server.js
 
 if (Meteor.isServer) {
+Meteor.methods({
+ 
+    addUser: function (email, password,role) {
+      var id = Accounts.createUser({
+        'email':email,
+        'password':password
+      });
+      Roles.addUsersToRoles(id,[role]);
+      return id;
+      console.log(id);
+    }
+  });
 
 ClassLevels = new Meteor.Collection('classlevels');
 Classes = new Meteor.Collection('classes');
@@ -17,7 +29,6 @@ Students = new Meteor.Collection('students');
 			'password': 'admin'
 		});
 		Roles.addUsersToRoles(Meteor.users.find({username: 'admin'}).fetch(), ['admin']);
-		console.log("no admin user");
 	}
 
   });
