@@ -9,6 +9,12 @@ Router.map(function(){
 			'menu':{to:'menu'}
 		}
 	});
+	this.route('signup',{
+		layoutTemplate:'signup',
+		yieldTemplates:{
+			'menu':{to:'menu'}
+		}
+	});
 	this.route('classes',{
 		layoutTemplate:'layout',
 		yieldTemplates:{

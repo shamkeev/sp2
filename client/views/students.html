@@ -1,6 +1,9 @@
 <template name="students">
 	{{>insertStudent2}}
-	<h4>student list</h4>
+	<div class="panel panel-primary">
+  <!-- Default panel contents -->
+	<div class="panel-heading">Students list</div>
+
 	<table class="table table-bordered table-hover table-condensed">
 		<thead>
 			<tr>
@@ -25,9 +28,9 @@
 					<td>{{profile.birthday}}</td>
 					<td>{{profile.gender}}</td>
 					{{#if profile.isActive}}
-						<td>Active</td>
+						<td class="success">Active</td>
 						{{else}}
-						<td>Not Active</td>
+						<td class="danger">Not Active</td>
 					{{/if}}
 					<td style="width:5px"><button type="button" class="btn btn-xs btn-link edit"><span class="glyphicon glyphicon-pencil"></span></button></td>
 					<td style="width:5px"><button type="button" class="btn btn-xs btn-link remove"><span class="glyphicon glyphicon-trash"></span></button></td>
@@ -36,10 +39,11 @@
 			{{/each}}
 		</tbody>
 	</table>
+</div>
 </template>
 
 <template name="sleft">
-	<div class="btn-group-vertical">
+	<div class="btn-group-vertical leftgroup">
 			<a class="btn btn-primary" data-toggle="modal" href='#modal-id-insertStudent2'>Add New Student</a>
 		</div>
 </template>

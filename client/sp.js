@@ -49,7 +49,7 @@ Template.classes.class = function(){
     }
   });
 
-  Template.profile.events({
+  Template.loginmodal.events({
     'click .login': function (evt, tmpl) {
       var email = tmpl.find('.email').value;
       var password = tmpl.find('.password').value;
@@ -76,6 +76,34 @@ Template.classes.class = function(){
       Session.set('newUserIdFromServer',response);
       //Meteor.users.update({_id:response}, {$set:{profile:['firstName':firstName]});
      });
+    }
+  });
+  Template.signup.events({
+    'click .go': function (evt,tmpl) {
+      var firstName = tmpl.find('.firstName').value;
+      var lastName = tmpl.find('.lastName').value;
+      var email = tmpl.find('.email').value;
+      var password = tmpl.find('.password').value;
+      var role = 'student';
+      var tel = tmpl.find('.tel').value;
+      var address = tmpl.find('.address').value;
+      var birthday = tmpl.find('.birthday').value;
+      var gender = tmpl.find('.gender').value;
+      var isActive = false;
+      Accounts.createUser({
+        'email':email,
+        'password':password,
+        'profile':{
+          'firstName':firstName,
+          'lastName':lastName,
+          'tel':tel,
+          'address':address,
+          'birthday':birthday,
+          'gender':gender,
+          'isActive': false
+        }
+      });
+      //Roles.addUsersToRoles(id,[role]);
     }
   });
   Template.insertTeacher.events({
