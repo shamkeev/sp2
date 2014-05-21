@@ -119,6 +119,7 @@ Template.classes.class = function(){
       var gender = tmpl.find('.gender').value;
       var isActive = tmpl.find('.isActive').value;
      Meteor.call('addUser',email,password,role,firstName,lastName,tel,address,birthday,gender,isActive, function(err, response){
+      console.log("isActive=" + isActive)
       Session.set('newUserIdFromServer',response);
       //Meteor.users.update({_id:response}, {$set:{profile:['firstName':firstName]});
      });
