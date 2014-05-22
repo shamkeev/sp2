@@ -3,11 +3,11 @@
 		{{>menu}}
 		{{#if currentUser}}
 		<div class="page-header">
-		  <h1>
+		  <h1>Hello 
 		  	{{#each currentUser.emails}}
 				{{address}}
 		  	{{/each}}
-		  	<small>profile</small></h1>
+		  	<small>this is your profile</small></h1>
 		</div>
 		{{else}}
 			<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
@@ -36,7 +36,39 @@
 
 			</div>
 		{{/if}}
+		{{#if isTeacherUser}}
+			{{>teacherClasses}}
+
+		{{/if}}
 	</div>
+</template>
+
+<template name="teacherClasses">
+
+		<div class="panel panel-primary">
+  <!-- Default panel contents -->
+	<div class="panel-heading">Students list</div>
+
+	<table class="table table-bordered table-hover table-condensed">
+		<thead>
+			<tr>
+				<th>Class Group</th>
+				<th>Level</th>
+				<th>Time</th>
+				<th>Room</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each classList}}
+				<tr><td>{{name}}</td>
+					<td>{{level}}</td>
+					<td>{{time}}</td>
+					<td>{{room}}</td>
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+	</div>			
 </template>
 
 <template name="loginmodal">

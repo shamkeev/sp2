@@ -1,5 +1,11 @@
 if (Meteor.isClient) {
 
+
+Template.teacherClasses.classList = function(){
+  //var name = Meteor.user.profile.firstName + ' ' +Meteor.user.profile.lastName;
+  var teacher = Meteor.user().profile.firstName + ' ' + Meteor.user().profile.lastName;
+  return Classes.find({teacher:teacher});
+}
 //sessions
 Template.insertStudent2.editingDoc = function(){
     return Session.get('newUserIdFromServer');
@@ -42,6 +48,23 @@ Template.classes.class = function(){
     return Meteor.users.find({roles:'teacher'});
   }
 
+  Template.insertClass.teacherList = function(){
+    return Meteor.users.find({roles:'teacher'});
+  }
+  Template.insertClass.levelList = function(){
+    return ClassLevels.find();
+  }
+  Template.insertClass.timeList = function(){
+    return TimeSections.find();
+  }
+  Template.insertClass.roomList = function(){
+    return Rooms.find();
+  }
+
+
+
+
+
 //events
   Template.classes.events({
     'dbclick .classItem': function () {
@@ -55,6 +78,18 @@ Template.classes.class = function(){
       var password = tmpl.find('.password').value;
 
       Meteor.loginWithPassword(email, password);
+    }
+  });
+
+  Template.insertClass.events({
+    'click .save': function (evt, tmpl) {
+      // ...
+      var name = tmpl.find('.name').value;
+      var level  = tmpl.find('.level').value;
+      var teacher = tmpl.find('.teacher').value;
+      var comment = tmpl.find('.comment').value;
+
+      Classes.insert({name:name, level:level, teacher:teacher, comment:comment});
     }
   });
 
@@ -163,6 +198,10 @@ classSchema = new SimpleSchema({
     level:{
       type:String,
       label:'Class Level'
+    },
+    teacher:{
+      type:String,
+      label:'Teacher'
     },
     comment:{
       type:String,

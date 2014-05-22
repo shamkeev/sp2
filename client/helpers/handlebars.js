@@ -13,6 +13,7 @@ UI.registerHelper("levelOptions", function(){
   });
   return levels;
 });
+
 UI.registerHelper("MeteorUsers", Meteor.users);
 
 
