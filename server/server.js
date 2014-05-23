@@ -3,7 +3,7 @@
 if (Meteor.isServer) {
 Meteor.methods({
  
-    addUser: function (email,password,role,firstName,lastName,tel,address,birthday,gender,isActive) {
+    addUser: function (email,password,role,firstName,lastName,tel,address,birthday,gender,isActive,group) {
       var id = Accounts.createUser({
         'email':email,
         'password':password,
@@ -14,7 +14,8 @@ Meteor.methods({
           'address':address,
           'birthday':birthday,
           'gender':gender,
-          'isActive':isActive
+          'isActive':isActive,
+          'class':group
         }
       });
       Roles.addUsersToRoles(id,[role]);
@@ -28,6 +29,8 @@ Classes = new Meteor.Collection('classes');
 Rooms = new Meteor.Collection('rooms');
 TimeSections = new Meteor.Collection('timesections');
 Schedule = new Meteor.Collection('schedule');
+Posts = new Meteor.Collection('posts');
+Assignments = new Meteor.Collection('assignments');
 
   Meteor.startup(function () {
     // code to run on server at startup
@@ -47,7 +50,13 @@ Schedule = new Meteor.Collection('schedule');
   Meteor.users.allow({
   	insert: function(userId, user){
   		return true;
-  	}
+  	},
+    update: function(userId, user){
+      return true;
+    },
+    remove: function(userId, user){
+      return true;
+    }
   });
 }
 /*

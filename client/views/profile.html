@@ -40,14 +40,63 @@
 			{{>teacherClasses}}
 
 		{{/if}}
+
+		{{#if isStudentUser}}
+			{{>studentinfo}}
+		{{/if}}
+	</div>
+</template>
+
+<template name="studentinfo">
+	<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+		<div class="panel panel-info">
+		  <div class="panel-body">
+		    {{#each postlist}}
+		   		<div class="alert alert-info">{{post}}</div>
+		   		{{/each}}
+		  </div>
+		  <div class="panel-footer">Some info here</div>
+		</div>
+	</div>
+	<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+		<div class="panel panel-success">
+		  <div class="panel-body">
+		  		<div class="alert alert-success"><h2>{{classlist}}</h2></div>
+		  		<table class="table table-striped table-hover table-bordered">
+		  			<thead><tr><th>Deadline:</th><th>Assignment</th></tr></thead>
+		  			<tbody>
+		  				{{#each homework}}
+		  				<tr>
+		  					<td>{{deadline}}</td> 
+		  					<td>{{assignment}}</td>
+		  				</tr>
+		  				{{/each}}
+		  			</tbody>
+		  		</table>
+		  		
+		  </div>
+		  <div class="panel-footer">Another info here</div>
+		</div>
 	</div>
 </template>
 
 <template name="teacherClasses">
 
+	<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+
+		<!--{{>quickForm collection="Posts" id="insertpost" type="insert"}}-->
+
+		{{>quickForm collection="Assignments" id="insertas" type="insert"}}
+
+		{{#each homework}}
+			Deadline: {{deadline}} Assignment:{{assignment}}
+		{{/each}}
+		
+	</div>
+	<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 		<div class="panel panel-primary">
   <!-- Default panel contents -->
-	<div class="panel-heading">Students list</div>
+	<div class="panel-heading">Classes</div>
 
 	<table class="table table-bordered table-hover table-condensed">
 		<thead>
@@ -68,7 +117,9 @@
 			{{/each}}
 		</tbody>
 	</table>
-	</div>			
+	</div>	
+	</div>
+			
 </template>
 
 <template name="loginmodal">

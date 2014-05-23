@@ -11,6 +11,10 @@ Template.insertStudent2.editingDoc = function(){
     return Session.get('newUserIdFromServer');
   };
 
+  Template.profile.currentUserName = function(){
+    return Meteor.user().profile.firstName + ' ' + Meteor.user().profile.lastName;
+  };
+
 Template.updateClass1.editingDoc = function () {
   return Classes.findOne({_id: Session.get("selectedDocId")});
 };
@@ -39,6 +43,9 @@ Template.classlevels.classLevels = function(){
 Template.classes.class = function(){
   return Classes.find();
 };
+Template.insertStudent2.classlist = function(){
+  return Classes.find({isActive:true});
+}
 
   Template.students.studentList = function(){
     return Meteor.users.find({roles:'student'});
@@ -63,9 +70,37 @@ Template.classes.class = function(){
 
 
 
-
+Template.studentinfo.classlist = function(){
+  return Meteor.user().profile.class;
+}
+Template.studentinfo.postlist = function(){
+  return Posts.find();
+}
 
 //events
+
+  Template.students.events({
+    'click .remove': function () {
+      // ...
+      Meteor.users.remove({_id:this._id});
+
+    }
+  });
+  Template.classes.events({
+    'click .remove': function () {
+      // ...
+      Classes.remove({_id:this._id});
+
+    }
+  });
+
+  Template.teachers.events({
+    'click .remove': function () {
+      // ...
+      Meteor.users.remove({_id:this._id});
+
+    }
+  });
   Template.classes.events({
     'dbclick .classItem': function () {
       Session.set('selectedDocId');
@@ -107,7 +142,8 @@ Template.classes.class = function(){
       var birthday = tmpl.find('.birthday').value;
       var gender = tmpl.find('.gender').value;
       var isActive = tmpl.find('.isActive').value;
-     Meteor.call('addUser',email,password,role,firstName,lastName,tel,address,birthday,gender,isActive, function(err, response){
+      var group = tmpl.find('.group').value;
+     Meteor.call('addUser',email,password,role,firstName,lastName,tel,address,birthday,gender,isActive,group, function(err, response){
       Session.set('newUserIdFromServer',response);
       //Meteor.users.update({_id:response}, {$set:{profile:['firstName':firstName]});
      });
@@ -183,6 +219,19 @@ Rooms = new Meteor.Collection('rooms');
 TimeSections = new Meteor.Collection('timesections');
 Schedule = new Meteor.Collection('schedule');
 
+Assignments = new Meteor.Collection('assignments');
+
+asSchema = new SimpleSchema({
+  assignment:{
+    type:String,
+    label:"Assignment"
+  },
+  deadline:{
+    type:Date,
+    label:"Deadline"
+  }
+});
+
 
 levelSchema = new SimpleSchema({
   name:{
@@ -255,6 +304,31 @@ ClassLevels.attachSchema(levelSchema);
 Classes.attachSchema(classSchema);
 //Rooms.attachSchema(roomSchema);
 //TimeSections.attachSchema(timeSectionSchema);
+postSchema = new SimpleSchema({
+  post:{
+    type:String,
+    label:'New Post'
+  }
+});
+Posts = new Meteor.Collection('posts');
+Posts.attachSchema(postSchema);
+Assignments.attachSchema(asSchema);
+postSchema = new SimpleSchema({
+  post:{
+    type:String,
+    label:'New Post'
+  }
+});
+
+
+
+Template.teacherClasses.events({
+  'click .go': function (evt, tmpl) {
+    // ...
+    var post = tmpl.find('.post').value;
+    Posts.insert({post:post});
+  }
+});
 
 }
 
