@@ -4,9 +4,7 @@
 		{{#if currentUser}}
 		<div class="page-header">
 		  <h1>Hello 
-		  	{{#each currentUser.emails}}
-				{{address}}
-		  	{{/each}}
+			  	{{currentUser.profile.firstName}}
 		  	<small>this is your profile</small></h1>
 		</div>
 		{{else}}
@@ -51,11 +49,19 @@
 	<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 		<div class="panel panel-info">
 		  <div class="panel-body">
-		    {{#each postlist}}
-		   		<div class="alert alert-info">{{post}}</div>
-		   		{{/each}}
+		    
+		   		<div class="alert alert-info">
+		   			Student Info:
+		   			<p>Name: {{currentUser.profile.firstName}}</p>
+		   			<p>Last Name: {{currentUser.profile.lastName}}</p>
+		   			<p>Email: {{#each currentUser.emails}}{{address}}{{/each}}</p>
+		   			<p>Birthday: {{currentUser.profile.birthday}}</p>
+		   			<p>Address:{{currentUser.profile.address}}</p>
+		   			<p>Telephone:{{currentUser.profile.tel}}</p>
+		   		</div>
+
 		  </div>
-		  <div class="panel-footer">Some info here</div>
+		  <div class="panel-footer">Have a nice day!</div>
 		</div>
 	</div>
 	<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
@@ -65,9 +71,9 @@
 		  		<table class="table table-striped table-hover table-bordered">
 		  			<thead><tr><th>Deadline:</th><th>Assignment</th></tr></thead>
 		  			<tbody>
-		  				{{#each homework}}
+		  				{{#each postlist}}
 		  				<tr>
-		  					<td>{{deadline}}</td> 
+		  					<td>{{formatDate deadline}}</td> 
 		  					<td>{{assignment}}</td>
 		  				</tr>
 		  				{{/each}}
@@ -75,7 +81,7 @@
 		  		</table>
 		  		
 		  </div>
-		  <div class="panel-footer">Another info here</div>
+		  <div class="panel-footer">Prepare for every class!</div>
 		</div>
 	</div>
 </template>
@@ -86,10 +92,10 @@
 
 		<!--{{>quickForm collection="Posts" id="insertpost" type="insert"}}-->
 
-		{{>quickForm collection="Assignments" id="insertas" type="insert"}}
+		{{>quickForm collection="Posts" id="insertas" type="insert"}}
 
-		{{#each homework}}
-			Deadline: {{deadline}} Assignment:{{assignment}}
+		{{#each postlist}}
+			<div class="alert alert-info">Deadline: {{formatDate deadline}} Assignment:{{assignment}}</div>
 		{{/each}}
 		
 	</div>

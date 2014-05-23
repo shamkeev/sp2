@@ -21,6 +21,14 @@ UI.registerHelper("MeteorUsers", Meteor.users);
 Handlebars.registerHelper('userEmail', function(){
 	return Meteor.user().emails[0].address;
 });
+Handlebars.registerHelper("formatDate", function(datetime) {
+	  if (moment) {
+	    return moment(datetime).format("MM/DD/YYYY");
+	  }
+	  else {
+	    return datetime;
+	  }
+	});
 
 //return true if the user is admin
 Handlebars.registerHelper('isAdminUser', function() {

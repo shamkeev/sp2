@@ -76,6 +76,13 @@ Template.studentinfo.classlist = function(){
 Template.studentinfo.postlist = function(){
   return Posts.find();
 }
+Template.teacherClasses.postlist = function(){
+  return Posts.find();
+}
+Template.studentinfo.postlist = function(){
+  return Posts.find();
+}
+
 
 //events
 
@@ -123,8 +130,10 @@ Template.studentinfo.postlist = function(){
       var level  = tmpl.find('.level').value;
       var teacher = tmpl.find('.teacher').value;
       var comment = tmpl.find('.comment').value;
+      var room = tmpl.find('.room').value;
+      var time = tmpl.find('.time').value;
 
-      Classes.insert({name:name, level:level, teacher:teacher, comment:comment});
+      Classes.insert({name:name, level:level, teacher:teacher, comment:comment, room:room, time:time});
     }
   });
 
@@ -311,7 +320,7 @@ postSchema = new SimpleSchema({
   }
 });
 Posts = new Meteor.Collection('posts');
-Posts.attachSchema(postSchema);
+Posts.attachSchema(asSchema);
 Assignments.attachSchema(asSchema);
 postSchema = new SimpleSchema({
   post:{
