@@ -44,7 +44,7 @@ Template.classes.class = function(){
   return Classes.find();
 };
 Template.insertStudent2.classlist = function(){
-  return Classes.find({isActive:true});
+  return Classes.find();
 }
 
   Template.students.studentList = function(){
